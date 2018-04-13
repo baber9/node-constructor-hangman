@@ -10,3 +10,4 @@ function Word (word) {
         Letter.guessChar(guessChar);
     }
 }
+
