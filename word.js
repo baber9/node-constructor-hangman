@@ -1,13 +1,15 @@
+// Letter Module
 var Letter = require("./letter.js");
-var newLetter = '';
 
+// CONSTRUCTOR to create new word instance
 function Word (word) {
+    
     // Array of new Letter objects representing the answer
     this.letterArr = [];
 
     // Populate letterArr - array of letter objects
     for (i = 0; i < word.length; i++) {
-        newLetter = new Letter(word[i]);
+        var newLetter = new Letter(word[i]);
         this.letterArr.push(newLetter);
     }
 
@@ -21,57 +23,39 @@ function Word (word) {
         for (i = 0; i < this.letterArr.length; i++) {
             returnString += this.letterArr[i].returnChar();
         }
+        // add new line for spacing
+        returnString += '\n';
+        // show the current puzzle
         console.log(returnString);
 
         // check for blanks (if not, user has won)
         if (returnString.indexOf('_') === -1) {
-            console.log("winner");
+            console.log("\x1b[35m%s\x1b[0m","WINNER!!!\n");
+            return true;
         }
+        return false;
     }
 
     //METHOD to call Letter.checkGuess
     this.guessLetter = function (guessChar) {
+
+        // initialize ltrGuessed bool as false
         var ltrGuessed = false;
         
+        // call checkGuess for each letter and compare to the guess
         for (i = 0; i < this.letterArr.length; i++) {
-            // call checkGuess for each letter
             this.letterArr[i].checkGuess(guessChar);
-
-            // if any letters are correct during loop, set ltrGuessed to true
-            ltrGuessed = this.letterArr[i].checkGuess(guessChar);
-
-            // FIGURE THIS OUT.  MAYBE TAKE OUT OF THIS FOR LOOP AND SOMEHOW CHECK IF GUESS CHAR HAS BEEN GUESSED (ltr.Guessed).
         }
-        // return true/false
-        // console.log(ltrGuessed);
-        return ltrGuessed;
+        
+        // return true if current guessChar is equal to any letterArr.str
+        for (i = 0; i < this.letterArr.length; i++) {
+            if (guessChar.toUpperCase() === this.letterArr[i].str.toUpperCase()) {
+                return this.letterArr[i].ltrGuessed;
+            }
+        }
     }
 }
 
+// Word obj export
 module.exports = Word;
-
-// TESTING
-// var newWord = new Word("Dallas Cowboys");
-
-// newWord.guessLetter('d');
-// newWord.wordToString();
-// newWord.guessLetter('a');
-// newWord.wordToString();
-// newWord.guessLetter('w');
-// newWord.wordToString();
-// newWord.guessLetter('l');
-// newWord.wordToString();
-// newWord.guessLetter('s');
-// newWord.wordToString();
-// newWord.guessLetter('c');
-// newWord.wordToString();
-// newWord.guessLetter('o');
-// newWord.wordToString();
-
-// newWord.guessLetter('b');
-// newWord.wordToString();
-// newWord.guessLetter('a');
-// newWord.wordToString();
-// newWord.guessLetter('y');
-// newWord.wordToString();
 

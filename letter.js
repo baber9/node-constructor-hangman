@@ -1,4 +1,4 @@
-// CONSTRUCTOR - Letter
+// CONSTRUCTOR to create new letter instances of answer
 function Letter (str) {
     
     // hold letter of Letter obj
@@ -22,25 +22,17 @@ function Letter (str) {
 
         if (this.str.toUpperCase() === guessChar.toUpperCase()) {
             this.ltrGuessed = true;
-            return true;
-        } else {
-            return false;
-        }
+        } 
+        
+        // returns t/f
+        return this.ltrGuessed;
     }
 }
 
 
-
+// Letter obj export
 module.exports = Letter;
 
-// TESTING
-// var newLetter = new Letter('a');
-// console.log(`Letter Str: ${newLetter.str}`);
-// newLetter.checkGuess('a');
-// console.log(`Letter Guessed?: ${newLetter.ltrGuessed}`);
-// var newLetter = new Letter('c');
-// newLetter.checkGuess('a');
-// console.log(`Letter Guessed?: ${newLetter.ltrGuessed}`);
 
 
 
